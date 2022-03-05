@@ -5,6 +5,12 @@
 We saw complicated and less appealing gift card websites and then we came up with a rich customer experience and a higly scalable solution for H&M, which can be used by large number of business partner websites/mobile applications. This solution is a plug-n-play solution which can be incorporated into a web/mobile applications.
 
 
+**Deploy to Azure**
+
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FDivakar-kumar%2FHM-GiftCard%2Fmain%2FARM-templates%2FStaticWebApp%2Ftemplate.json%3Ftoken%3DGHSAT0AAAAAABQ4TU66ECY43HBRHJHNCNYUYRDGSHA)
+
+
 **H&M Gift Card solution flow**
 
 We need a highly scalable solution and as well this should be a plug and play over any existing architecture. Our architecture is based on latest technologies that suits our buisness needs.
