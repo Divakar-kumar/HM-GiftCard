@@ -8,7 +8,7 @@ We saw complicated and less appealing gift card websites and then we came up wit
 **Deploy to Azure**
 
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FDivakar-kumar%2FHM-GiftCard%2Fmain%2FARM-templates%2FStaticWebApp%2Ftemplate.json%3Ftoken%3DGHSAT0AAAAAABQ4TU66ECY43HBRHJHNCNYUYRDGSHA)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FDivakar-kumar%2FHM-GiftCard%2Fmain%2FARM-templates%2FStaticWebApp%2Ftemplate.json)
 
 
 **H&M Gift Card solution flow**
