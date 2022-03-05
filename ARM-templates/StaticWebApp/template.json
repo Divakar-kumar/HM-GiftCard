@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "staticSites_stapp_giftcard_name": {
+            "defaultValue": "stapp-giftcard",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/staticSites",
+            "apiVersion": "2021-03-01",
+            "name": "[parameters('staticSites_stapp_giftcard_name')]",
+            "location": "Central US",
+            "sku": {
+                "name": "Free",
+                "tier": "Free"
+            },
+            "properties": {
+                "repositoryUrl": "https://github.com/Divakar-kumar/HM-GiftCard",
+                "branch": "main",
+                "stagingEnvironmentPolicy": "Enabled",
+                "allowConfigFileUpdates": true,
+                "provider": "GitHub",
+                "enterpriseGradeCdnStatus": "Disabled"
+            }
+        }
+    ]
+}
