@@ -43,7 +43,7 @@ namespace HM.GiftCard.API.Models
       [JsonProperty("currency", Required = Required.Always)]
       public string Currency { get; set; }
 
-      [JsonProperty("sendLaterDateTime", Required = Required.Always)]
+      [JsonProperty("sendLaterDateTime", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
       public DateTimeOffset SendLaterDateTime { get; set; }
 
       [JsonProperty("cardNumber", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
