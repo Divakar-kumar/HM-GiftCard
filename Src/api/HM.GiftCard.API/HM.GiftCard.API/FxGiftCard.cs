@@ -12,11 +12,11 @@ using Newtonsoft.Json;
 
 namespace HM.GiftCard.API
 {
-    public class Function1
+    public class FxGiftCard
     {
-        private readonly ILogger<Function1> _logger;
+        private readonly ILogger<FxGiftCard> _logger;
 
-        public Function1(ILogger<Function1> log)
+        public FxGiftCard(ILogger<FxGiftCard> log)
         {
             _logger = log;
         }
