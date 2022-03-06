@@ -10,7 +10,7 @@ namespace HM.GiftCard.API.Helper
    {
       public static int GetRandomCode(int length)
       {
-         Random rand= new Random();
+         Random rand = new Random();
          string randomString = String.Empty;
 
          for (int i = 0; i < length; i++)
@@ -19,7 +19,7 @@ namespace HM.GiftCard.API.Helper
          }
 
          return Convert.ToInt32(randomString);
-         
+
       }
       public static string GetRandomString(int length)
       {
@@ -28,6 +28,6 @@ namespace HM.GiftCard.API.Helper
          const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
          return new string(Enumerable.Repeat(chars, length)
              .Select(s => s[random.Next(s.Length)]).ToArray());
-      }
+      }      
    }
 }

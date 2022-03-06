@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace HM.GiftCard.API
    public class FxGiftCard
    {
       private readonly ILogger<FxGiftCard> _logger;
+      private List<string> errors = new List<string>();
 
       public FxGiftCard(ILogger<FxGiftCard> log)
       {
@@ -46,7 +48,20 @@ namespace HM.GiftCard.API
 
             _logger.LogInformation($"Request body serialized string {requestBody}");
 
-            var input = JsonConvert.DeserializeObject<HMGiftCard>(requestBody);
+            var input = JsonConvert.DeserializeObject<HMGiftCard>(requestBody, new JsonSerializerSettings
+            {
+               Error = (s, e) =>
+               {
+                  errors.Add(e.ErrorContext.Error.Message);
+                  e.ErrorContext.Handled = true;
+               }
+            });
+
+            if (errors.Count > 0)
+               return new BadRequestObjectResult(new
+               {
+                  Errors = new List<string>(errors)
+               });
 
             _logger.LogInformation("Request Body deserialized");
 
@@ -61,12 +76,12 @@ namespace HM.GiftCard.API
             return new OkObjectResult(new { data = "success" });
          }
          catch (Exception ex)
-         {
+         {           
             _logger.LogError(ex, "Something went wrong while creating gift card");
 
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
          }
-      }
+      }     
    }
 }
 
