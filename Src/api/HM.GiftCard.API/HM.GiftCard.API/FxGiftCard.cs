@@ -28,6 +28,7 @@ namespace HM.GiftCard.API
       }
 
       [FunctionName("CreateGiftCard")]
+      [HttpPost]
       [ProducesResponseType((int)HttpStatusCode.Created)]
       [ProducesResponseType((int)HttpStatusCode.BadRequest)]
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
