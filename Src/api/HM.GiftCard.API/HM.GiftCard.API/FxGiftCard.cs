@@ -97,9 +97,13 @@ namespace HM.GiftCard.API
          var type = "GiftCard.Created";
          var dataContentType = "application/cloudevents+json";
 
-         var data = BinaryData.FromObjectAsJson(input);
+         var data = JsonConvert.SerializeObject(input);
 
-         var @event = new CloudEvent(source, type, data, dataContentType);
+         var @event = new CloudEvent(source, type, data)
+         {
+            DataContentType = dataContentType,
+            DataSchema = "1.0"
+         };
          var events = new List<CloudEvent>() { @event };
 
          await publisher.SendEventsAsync(events).ConfigureAwait(false);
