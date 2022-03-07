@@ -1,0 +1,14 @@
+.smsWrapper {
+  display: flex;
+  padding: 20px 0 15px;
+}
+
+.smsLabel {
+  width: 50%;
+}
+.smsInputWrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

@@ -1,0 +1,18 @@
+.optionButtonGroup {
+  display: flex;
+}
+.buttonContainer {
+  margin: 0 24px;
+}
+.categoryButtons {
+  margin-top: 40px;
+  flex-grow: 1;
+}
+
+.carouselWrapper {
+  margin-top: 48px;
+}
+.button {
+  color: #fff;
+  background: #222;
+}
