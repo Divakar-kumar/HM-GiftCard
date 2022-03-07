@@ -34,8 +34,11 @@ namespace HM.GiftCard.API.Models
       [JsonProperty("quantity", Required = Required.Always)]
       public long Quantity { get; set; }
 
-      [JsonProperty("template", Required = Required.Always)]
-      public string Template { get; set; }
+      [JsonProperty("occasion", Required = Required.Always)]
+      public string Occasion { get; set; }
+
+      [JsonProperty("imageUrl", Required = Required.Always)]
+      public string ImageUrl { get; set; }
 
       [JsonProperty("sendLater", Required = Required.Always)]
       public bool SendLater { get; set; }

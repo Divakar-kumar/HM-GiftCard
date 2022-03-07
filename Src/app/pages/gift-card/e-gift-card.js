@@ -12,6 +12,7 @@ import EmailForm from "../../component/EmailForm/EmailForm";
 import SmsForm from "../../component/SmsForm/SmsForm";
 import SelfDeliverForm from "../../component/SelfDeliverForm/SelfDeliverForm";
 import { slidesData } from "../../component/Carousel/mock";
+import ImageUpload from "../../component/ImageUpload/ImageUpload";
 
 const EGiftCard = () => {
   const [deliveryOption, setDeliveryOption] = useState(1);
@@ -58,7 +59,14 @@ const EGiftCard = () => {
             slidesData={categoryData}
           ></Carousel>
         )}
-        {choice === 2 && <div>Choose custom image</div>}
+        {choice === 2 && (
+          <div>
+            Choose custom image
+            <div className={styles.imageUploadContainer}>
+              <ImageUpload />
+            </div>
+          </div>
+        )}
         <Form></Form>
 
         <div>
