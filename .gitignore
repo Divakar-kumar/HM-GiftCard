@@ -349,4 +349,7 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-*.next/
+*.next/cache
+*.next/static
+*.next/trace
+*.next/server
