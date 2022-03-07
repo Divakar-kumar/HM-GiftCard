@@ -40,7 +40,7 @@ namespace HM.GiftCard.API
       [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
       public async Task<IActionResult> CreateGiftCard(
           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "giftcard")] HttpRequest req, [CosmosDB(
-        databaseName: "test-gift-card-02",
+        databaseName: "gift-card-cosmos-db",
         collectionName: "GiftCard",
         ConnectionStringSetting = "CosmosDBConnection")]
         IAsyncCollector<object> giftCards)
@@ -108,7 +108,7 @@ namespace HM.GiftCard.API
          {
             _logger.LogInformation("Deleting Gift card");
 
-            Uri collectionUri = UriFactory.CreateDocumentCollectionUri("test-gift-card-02", "GiftCard");
+            Uri collectionUri = UriFactory.CreateDocumentCollectionUri("gift-card-cosmos-db", "GiftCard");
             var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
                     .AsEnumerable().FirstOrDefault();
 
