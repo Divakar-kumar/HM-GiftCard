@@ -78,7 +78,7 @@ const ImageUpload = () => {
           onChange={onChange}
           onPreview={onPreview}
         >
-          {fileList.length < 1 && "+ Upload"}
+          {fileList.length < 1 && "+ Upload Image"}
         </Upload>
       </ImgCrop>
       <div className={styles.cardMessage}>{customCardData.imageMessage}</div>
@@ -86,6 +86,7 @@ const ImageUpload = () => {
         <div className={styles.emailLabel}>Custom Message on the Card</div>
         <div className={styles.emailInputWrapper}>
           <input
+            className={styles.textBox}
             type="text"
             name="imageMessage"
             value={customCardData.imageMessage}

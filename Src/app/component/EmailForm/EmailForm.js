@@ -9,7 +9,7 @@ const EmailForm = () => {
     senderName: "",
     deliveryDate: "",
   });
-  const { setEmailFormData } = useContext(FormContext);
+  const { setEmailFormDetails } = useContext(FormContext);
 
   const handleInputChange = (event) => {
     const data = { ...emailData };
@@ -17,7 +17,7 @@ const EmailForm = () => {
     setEmailData(data);
   };
   useEffect(() => {
-    setEmailFormData(emailData);
+    setEmailFormDetails(emailData);
   }, [emailData]);
   return (
     <div>
@@ -65,7 +65,7 @@ const EmailForm = () => {
           <div className={styles.emailLabel}>Delivery date</div>
           <div className={styles.emailInputWrapper}>
             <input
-              type="text"
+              type="date"
               name="deliveryDate"
               value={emailData.deliveryDate}
               onChange={handleInputChange}

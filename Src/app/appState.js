@@ -6,7 +6,10 @@ export const FormContext = createContext();
 const FormContextProvider = (props) => {
   // this state will be shared with all components
   const [customImageDetails, setCustomImageDetails] = useState();
-  const [emailFormData, setEmailFormData] = useState();
+  const [emailFormDetails, setEmailFormDetails] = useState();
+  const [amountCardDetails, setAmountCardDetails] = useState();
+  const [sMSFormDetails, setSMSFormDetails] = useState();
+  const [selfFormDetails, setSelfFormDetails] = useState();
 
   return (
     // this is the provider providing state
@@ -14,8 +17,14 @@ const FormContextProvider = (props) => {
       value={{
         customImageDetails,
         setCustomImageDetails,
-        emailFormData,
-        setEmailFormData,
+        emailFormDetails,
+        setEmailFormDetails,
+        amountCardDetails,
+        setAmountCardDetails,
+        sMSFormDetails,
+        setSMSFormDetails,
+        selfFormDetails,
+        setSelfFormDetails,
       }}
     >
       {props.children}

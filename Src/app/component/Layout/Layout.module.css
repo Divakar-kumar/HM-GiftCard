@@ -1,5 +1,6 @@
 .page {
   display: flex;
+  background: #faf9f8;
 }
 .container {
   /* max-width: 36rem; */

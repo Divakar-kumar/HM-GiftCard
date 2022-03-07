@@ -3,7 +3,7 @@ import OccassionMenu from "../../component/OccassionMenu/OccassionMenu";
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className={styles.page}>
       <section className={styles.leftSection}>
         {/* <OccassionMenu></OccassionMenu> */}
       </section>

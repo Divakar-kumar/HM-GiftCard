@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./Form.module.css";
 import HMButton from "../Button/Button";
+import { FormContext } from "../../appState";
 import cn from "classnames";
 
 const amount = [
@@ -23,6 +24,7 @@ const amount = [
 ];
 
 const Form = () => {
+  const { setAmountCardDetails } = useContext(FormContext);
   const [selectedAmount, setSelectedAmount] = useState(1);
   const [cardData, setCardData] = useState({
     amount: "500",
@@ -73,6 +75,10 @@ const Form = () => {
     }
   };
 
+  useEffect(() => {
+    setAmountCardDetails(selectedAmount);
+  }, [selectedAmount]);
+
   return (
     <div>
       <div className={styles.amountWrapper}>
@@ -86,6 +92,7 @@ const Form = () => {
             max="2000"
             onChange={handleInputChange}
             onBlur={handleBlur}
+            className={styles.textBox}
           ></input>
           {errorMessage.amount && (
             <p className={styles.errorText}>{errorMessage.amount}</p>
@@ -127,6 +134,7 @@ const Form = () => {
             onBlur={handleBlur}
             min="1"
             max="30"
+            className={styles.textBox}
           ></input>
           {errorMessage.quantity && (
             <p className={styles.errorText}>{errorMessage.quantity}</p>
@@ -145,6 +153,7 @@ const Form = () => {
             placeholder="Add a personal message"
             value={cardData.message}
             onChange={handleInputChange}
+            className={styles.textBox}
           ></textarea>
           <p>Remaining characters: 200 (5 remaining lines )</p>
         </div>

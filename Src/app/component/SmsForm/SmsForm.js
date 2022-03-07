@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { FormContext } from "../../appState";
 import styles from "./SmsForm.module.css";
 
 const SmsForm = () => {
+  const { setSMSFormDetails } = useContext(FormContext);
   const [smsData, setSmsData] = useState({
     recipientName: "",
     recipientPhone: "",
@@ -15,6 +17,9 @@ const SmsForm = () => {
     data[event.target.name] = event.target.value;
     setSmsData(data);
   };
+  useEffect(() => {
+    setSMSFormDetails(smsData);
+  }, [smsData]);
 
   return (
     <div>
@@ -28,6 +33,7 @@ const SmsForm = () => {
               name="recipientName"
               value={smsData.recipientName}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>
@@ -40,6 +46,7 @@ const SmsForm = () => {
               name="recipientPhone"
               value={smsData.recipientPhone}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
             <p>A valid mobile phone number</p>
           </div>
@@ -54,6 +61,7 @@ const SmsForm = () => {
               name="senderName"
               value={smsData.senderName}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
             <p>The name of the person the card is from</p>
           </div>
@@ -67,6 +75,7 @@ const SmsForm = () => {
               name="deliveryDate"
               value={smsData.deliveryDate}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>
@@ -79,6 +88,7 @@ const SmsForm = () => {
               name="recipientEmail"
               value={smsData.recipientEmail}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>

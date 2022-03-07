@@ -16,7 +16,13 @@ import ImageUpload from "../../component/ImageUpload/ImageUpload";
 import { FormContext } from "../../appState";
 
 const EGiftCard = () => {
-  const { customImageDetails, emailFormData } = useContext(FormContext);
+  const {
+    customImageDetails,
+    emailFormDetails,
+    amountCardDetails,
+    sMSFormDetails,
+    selfFormDetails,
+  } = useContext(FormContext);
   const [deliveryOption, setDeliveryOption] = useState(1);
   const [categoryData, setCategoryData] = useState(slidesData);
   const [choice, setChoice] = useState(1);
@@ -29,7 +35,19 @@ const EGiftCard = () => {
   };
 
   const handleBuy = () => {
-    console.log("in submit", customImageDetails, emailFormData);
+    console.log(
+      "in submit",
+      "customImageDetails",
+      customImageDetails,
+      "emailFormDetails",
+      emailFormDetails,
+      "amountCardDetails",
+      amountCardDetails,
+      "sMSFormDetails",
+      sMSFormDetails,
+      "selfFormDetails",
+      selfFormDetails
+    );
   };
 
   return (
@@ -120,7 +138,7 @@ const EGiftCard = () => {
         <div className={styles.optionButtonGroup}>
           <HMButton
             className={cn(styles.buttonContainer, styles.button)}
-            text="Buy"
+            text="PURCHASE E-GIFT CARD"
             onClick={handleBuy}
           ></HMButton>
         </div>

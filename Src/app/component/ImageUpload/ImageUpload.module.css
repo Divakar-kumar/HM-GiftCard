@@ -25,3 +25,6 @@
   font-style: italic;
   font-family: cursive;
 }
+.textBox {
+  border: 1px solid #d0d0d0;
+}
