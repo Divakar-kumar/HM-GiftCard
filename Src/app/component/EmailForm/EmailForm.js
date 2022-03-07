@@ -30,6 +30,7 @@ const EmailForm = () => {
               name="recipientName"
               value={emailData.recipientName}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>
@@ -42,6 +43,7 @@ const EmailForm = () => {
               name="recipientEmail"
               value={emailData.recipientEmail}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>
@@ -54,6 +56,7 @@ const EmailForm = () => {
               name="senderName"
               value={emailData.senderName}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>
@@ -66,6 +69,7 @@ const EmailForm = () => {
               name="deliveryDate"
               value={emailData.deliveryDate}
               onChange={handleInputChange}
+              className={styles.textBox}
             ></input>
           </div>
         </div>
