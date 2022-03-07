@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Azure.Messaging;
+using Azure.Messaging.EventGrid;
 using HM.GiftCard.API.Helper;
 using HM.GiftCard.API.Models;
 using Microsoft.AspNetCore.Http;
@@ -27,8 +29,7 @@ namespace HM.GiftCard.API
          _logger = log;
       }
 
-      [FunctionName("CreateGiftCard")]
-      [HttpPost]
+      [FunctionName("CreateGiftCard")]      
       [ProducesResponseType((int)HttpStatusCode.Created)]
       [ProducesResponseType((int)HttpStatusCode.BadRequest)]
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -67,22 +68,46 @@ namespace HM.GiftCard.API
             _logger.LogInformation("Request Body deserialized");
 
             input.Id = String.IsNullOrWhiteSpace(input.Id) ? Guid.NewGuid().ToString("N") : input.Id;
-            input.Customer.Id= String.IsNullOrWhiteSpace(input.Customer.Id) ? Guid.NewGuid().ToString("N") : input.Customer.Id;
+            input.Customer.Id = String.IsNullOrWhiteSpace(input.Customer.Id) ? Guid.NewGuid().ToString("N") : input.Customer.Id;
 
             input.GiftCard.Pin = GiftCardHelper.GetRandomCode(6);
             input.GiftCard.CardNumber = GiftCardHelper.GetRandomString(16);
 
             await giftCards.AddAsync(input);
 
+            var publisher = InitializeEventGridPublisher();
+
+            await PublishEvent(input, publisher);
+
             return new OkObjectResult(new { data = "success" });
          }
          catch (Exception ex)
-         {           
+         {
             _logger.LogError(ex, "Something went wrong while creating gift card");
 
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
          }
-      }     
+      }
+
+      private async Task PublishEvent(HMGiftCard input,EventGridPublisherClient publisher)
+      {
+         var source = "HM.GiftCard.API";
+         var type = "GiftCard.Created";
+         var dataContentType = "application/cloudevents+json";
+
+         var data = BinaryData.FromObjectAsJson(input);
+
+         var @event = new CloudEvent(source, type, data, dataContentType);
+         var events = new List<CloudEvent>() { @event };
+
+         await publisher.SendEventsAsync(events).ConfigureAwait(false);
+      }
+
+      private EventGridPublisherClient InitializeEventGridPublisher()
+      {
+         var publisher = new EventGridPublisherClient(new Uri("https://evgt-hmgiftcard.centralindia-1.eventgrid.azure.net/api/events"), new Azure.AzureKeyCredential("CrK+NtkQGtfeRVcxPcFV4CVR5+fceIlHLO3BJrZMD3E="));
+         return publisher;
+      }
    }
 }
 
