@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Azure.Messaging;
@@ -9,10 +10,10 @@ using HM.GiftCard.API.Helper;
 using HM.GiftCard.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -29,7 +30,7 @@ namespace HM.GiftCard.API
          _logger = log;
       }
 
-      [FunctionName("CreateGiftCard")]            
+      [FunctionName("CreateGiftCard")]
       [ProducesResponseType((int)HttpStatusCode.Created)]
       [ProducesResponseType((int)HttpStatusCode.BadRequest)]
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -39,7 +40,7 @@ namespace HM.GiftCard.API
       [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
       public async Task<IActionResult> CreateGiftCard(
           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "giftcard")] HttpRequest req, [CosmosDB(
-        databaseName: "gift-card-cosmos-db",
+        databaseName: "test-gift-card-02",
         collectionName: "GiftCard",
         ConnectionStringSetting = "CosmosDBConnection")]
         IAsyncCollector<object> giftCards)
@@ -91,7 +92,43 @@ namespace HM.GiftCard.API
          }
       }
 
-      private async Task PublishEvent(HMGiftCard input,EventGridPublisherClient publisher)
+      [FunctionName("DeleteGiftCard")]
+      [ProducesResponseType((int)HttpStatusCode.OK)]
+      [ProducesResponseType((int)HttpStatusCode.NotFound)]
+      [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+      [OpenApiOperation(operationId: "DeleteGiftCard")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
+      public async Task<IActionResult> DeleteGiftCard(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "giftcard/{id}")] HttpRequest req,
+    [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")] DocumentClient client, string id)
+      {
+         try
+         {
+            _logger.LogInformation("Deleting Gift card");
+
+            Uri collectionUri = UriFactory.CreateDocumentCollectionUri("test-gift-card-02", "GiftCard");
+            var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
+                    .AsEnumerable().FirstOrDefault();
+
+            if (document == null)
+            {
+               return new NotFoundResult();
+            }
+            await client.DeleteDocumentAsync(document.SelfLink);
+            
+            return new OkResult();
+         }
+         catch(Exception ex)
+         {
+            _logger.LogError(ex, "Something went wrong while deleting gift card");
+
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+         }
+      }
+
+      private async Task PublishEvent(HMGiftCard input, EventGridPublisherClient publisher)
       {
          var source = "HM.GiftCard.API";
          var type = "GiftCard.Created";
