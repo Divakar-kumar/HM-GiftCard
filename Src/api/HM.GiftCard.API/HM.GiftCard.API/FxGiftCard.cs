@@ -33,7 +33,9 @@ namespace HM.GiftCard.API
       [ProducesResponseType((int)HttpStatusCode.BadRequest)]
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
       [OpenApiOperation(operationId: "CreateGiftCard")]
-      [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(OkObjectResult), Description = "The OK response")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "text/plain", bodyType: typeof(BadRequestObjectResult), Description = "Validation error with request body")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(StatusCodeResult), Description = "Server error")]
       public async Task<IActionResult> CreateGiftCard(
           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "giftcard")] HttpRequest req, [CosmosDB(
         databaseName: "gift-card-cosmos-db",
