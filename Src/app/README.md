@@ -1,10 +1,8 @@
-# Next.js starter
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-[Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview) allows you to easily build [Next.js](https://nextjs.org/) apps in minutes. Use this repo with the [Next.js tutorial](https://docs.microsoft.com/azure/static-web-apps/deploy-nextjs) to build and customize a new static site.
+## Getting Started
 
-## Running locally
-
-To run locally, open the development server with the following command:
+First, run the development server:
 
 ```bash
 npm run dev
@@ -12,54 +10,25 @@ npm run dev
 yarn dev
 ```
 
-Next, open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-For a more rich local development experience, refer to [Set up local development for Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/local-development).
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## How it works
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-This starter application is configured to build a static site with dynamic routes. 
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-### Dynamic routes
+## Learn More
 
-The *pages/project/[slug].js* file implements code that tells Next.js what pages to generate based on associated data. In Next.js, each page powered by dynamic routes needs to implement `getStaticPaths` and `getStaticProps` to give Next.js the information it needs to build pages that match possible route values.
+To learn more about Next.js, take a look at the following resources:
 
-Inside `getStaticPaths`, each data object is used to create a list of paths all possible pages.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-```javascript
-export async function getStaticPaths() {
-  const paths = projects.map((project) => ({
-    params: { path: project.slug },
-  }))
-  return { paths, fallback: false };
-}
-```
-The `getStaticProps` function is run each time a page is generated. Based off the parameter values, the function matches the full data object to the page being generated. Once the data object is returned, it is used as the context for the generated page.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-```javascript
-export async function getStaticProps({ params }) {
-  const project = projects.find(proj => proj.slug === params.path);
-  return { props: { project } };
-}
-```
-### Application configuration
+## Deploy on Vercel
 
-The `next.config.js` file is set up to enforce trailing slashes on all page.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-```javascript
-module.exports = {
-    trailingSlash: true
-};
-```
-### Build scripts
-
-The npm `build` script runs commands to not only build the application, but also generate all the static files to the _out_ folder.
-
-```json
-"scripts": {
-  "dev": "next dev",
-  "build": "next build && next export",
-},
-```
-
-> **Note:** If you use the [Azure Static Web Apps CLI](https://docs.microsoft.com/azure/static-web-apps/local-development), copy the *staticwebapp.config.json* file to the *out* folder, and start the CLI from the *out* folder.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
