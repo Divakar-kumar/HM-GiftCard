@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Carousel.module.css";
+import { slidesData } from "../Carousel/mock";
 
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// import { slidesData } from "./mock";
-
 const Carousel = ({ className, slidesData }) => {
+  const [imageData, setImageData] = useState("");
+
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   const [slider1, setSlider1] = useState(null);
@@ -39,6 +40,12 @@ const Carousel = ({ className, slidesData }) => {
     centerPadding: "10px",
   };
 
+  const handleAfterChange = (event) => {
+    console.log("handleAfterChange");
+    console.log(event);
+    const filteredData = slidesData.filter((data) => data.id === event);
+    setImageData(filteredData[0].image);
+  };
   return (
     <div className={className}>
       <div className={styles.sliderWrapper}>
@@ -65,6 +72,7 @@ const Carousel = ({ className, slidesData }) => {
             {...settingsThumbs}
             asNavFor={nav1}
             ref={(slider) => setSlider2(slider)}
+            afterChange={handleAfterChange}
           >
             {slidesData.map((slide) => (
               <div className={styles.slickSlide} key={slide.id}>

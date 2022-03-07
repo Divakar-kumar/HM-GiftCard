@@ -21,3 +21,6 @@
   color: #fff;
   background: #222;
 }
+.errorText {
+  color: red;
+}

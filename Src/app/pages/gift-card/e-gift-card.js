@@ -24,6 +24,9 @@ const EGiftCard = () => {
   const handleCategory = (data) => {
     setCategoryData(data);
   };
+
+  const handleBuy = () => {};
+
   return (
     <Layout>
       <Head>
@@ -91,6 +94,11 @@ const EGiftCard = () => {
           {deliveryOption === 2 && <SelfDeliverForm></SelfDeliverForm>}
           {deliveryOption === 3 && <SmsForm></SmsForm>}
         </div>
+        <HMButton
+          className={cn(styles.buttonContainer, styles.button)}
+          text="Buy"
+          onClick={handleBuy}
+        ></HMButton>
       </main>
     </Layout>
   );
