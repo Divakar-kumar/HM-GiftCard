@@ -29,8 +29,7 @@ namespace HM.GiftCard.API
          _logger = log;
       }
 
-      [FunctionName("CreateGiftCard")]      
-      [HttpPost]
+      [FunctionName("CreateGiftCard")]            
       [ProducesResponseType((int)HttpStatusCode.Created)]
       [ProducesResponseType((int)HttpStatusCode.BadRequest)]
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
