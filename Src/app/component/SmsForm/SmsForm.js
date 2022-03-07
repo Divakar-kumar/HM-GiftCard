@@ -1,4 +1,4 @@
-import styles from "./smsForm.module.css";
+import styles from "./SmsForm.module.css";
 
 const SmsForm = () => {
   return (
