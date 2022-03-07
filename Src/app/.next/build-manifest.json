@@ -1,34 +1,45 @@
 {
   "polyfillFiles": [
-    "static/chunks/polyfills.js"
+    "static/chunks/polyfills-5cd94c89d3acac5f.js"
   ],
-  "devFiles": [
-    "static/chunks/react-refresh.js"
-  ],
-  "ampDevFiles": [
-    "static/chunks/webpack.js",
-    "static/chunks/amp.js"
-  ],
+  "devFiles": [],
+  "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/development/_buildManifest.js",
-    "static/development/_ssgManifest.js",
-    "static/development/_middlewareManifest.js"
+    "static/kvzyhbTp-mhOYq765DMy5/_buildManifest.js",
+    "static/kvzyhbTp-mhOYq765DMy5/_ssgManifest.js",
+    "static/kvzyhbTp-mhOYq765DMy5/_middlewareManifest.js"
   ],
   "pages": {
+    "/": [
+      "static/chunks/webpack-66f1f82088660e1d.js",
+      "static/chunks/framework-e70c6273bfe3f237.js",
+      "static/chunks/main-a054bbf31fb90f6a.js",
+      "static/chunks/959-b3c00aa3c678ce33.js",
+      "static/css/149b18973e5508c7.css",
+      "static/chunks/pages/index-fb61a875872298ac.js"
+    ],
     "/_app": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/_app.js"
+      "static/chunks/webpack-66f1f82088660e1d.js",
+      "static/chunks/framework-e70c6273bfe3f237.js",
+      "static/chunks/main-a054bbf31fb90f6a.js",
+      "static/css/edfd0c8fa2c8181a.css",
+      "static/chunks/pages/_app-9cd1d19dd7237c4c.js"
     ],
     "/_error": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/_error.js"
+      "static/chunks/webpack-66f1f82088660e1d.js",
+      "static/chunks/framework-e70c6273bfe3f237.js",
+      "static/chunks/main-a054bbf31fb90f6a.js",
+      "static/chunks/pages/_error-2280fa386d040b66.js"
     ],
     "/gift-card/e-gift-card": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/gift-card/e-gift-card.js"
+      "static/chunks/webpack-66f1f82088660e1d.js",
+      "static/chunks/framework-e70c6273bfe3f237.js",
+      "static/chunks/main-a054bbf31fb90f6a.js",
+      "static/css/f102f8d8c9056f6f.css",
+      "static/chunks/959-b3c00aa3c678ce33.js",
+      "static/chunks/753-7711ecaa539440e7.js",
+      "static/css/bfba4fbb288004f9.css",
+      "static/chunks/pages/gift-card/e-gift-card-298cc50683cc44f0.js"
     ]
   },
   "ampFirstPages": []
