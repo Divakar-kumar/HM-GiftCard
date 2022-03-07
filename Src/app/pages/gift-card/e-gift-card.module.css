@@ -16,5 +16,6 @@
   color: #fff;
   background: #222;
 }
-.imageUploadContainer {
+.spacing {
+  margin-top: 1rem;
 }

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ImgCrop from "antd-img-crop";
 import { Upload } from "antd";
 import "antd/dist/antd.css";
-import { styles } from "./ImageUpload.module.css";
+import styles from "./ImageUpload.module.css";
+import { FormContext } from "../../appState";
 
 const getSrcFromFile = (file) => {
   return new Promise((resolve) => {
@@ -13,16 +14,40 @@ const getSrcFromFile = (file) => {
 };
 
 const ImageUpload = () => {
-  const [fileList, setFileList] = useState([
-    // {
-    //   uid: "-1",
-    //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    // },
-  ]);
-
+  const { setCustomImageDetails } = useContext(FormContext);
+  const [customCardData, setCustomCardData] = useState({
+    imageBase64: null,
+    imageMessage: "",
+  });
+  const [fileList, setFileList] = useState([]);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+
+    toDataURL(newFileList[0]).then((dataUrl) => {
+      console.log("RESULT:", dataUrl);
+      setCustomCardData({
+        imageBase64: dataUrl,
+        imageMessage: customCardData.imageMessage,
+      });
+    });
   };
+
+  useEffect(() => {
+    setCustomImageDetails(customCardData);
+  }, [customCardData]);
+
+  const toDataURL = (url) =>
+    fetch(url)
+      .then((response) => response.blob())
+      .then(
+        (blob) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
 
   const onPreview = async (file) => {
     const src = file.url || (await getSrcFromFile(file));
@@ -37,18 +62,38 @@ const ImageUpload = () => {
     }
   };
 
+  const handleInputChange = (event) => {
+    setCustomCardData({
+      imageMessage: event.target.value,
+      imageBase64: customCardData.imageBase64,
+    });
+  };
+
   return (
-    <ImgCrop grid rotate>
-      <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        listType="picture-card"
-        fileList={fileList}
-        onChange={onChange}
-        onPreview={onPreview}
-      >
-        {fileList.length < 1 && "+ Upload"}
-      </Upload>
-    </ImgCrop>
+    <>
+      <ImgCrop grid rotate>
+        <Upload
+          listType="picture-card"
+          fileList={fileList}
+          onChange={onChange}
+          onPreview={onPreview}
+        >
+          {fileList.length < 1 && "+ Upload"}
+        </Upload>
+      </ImgCrop>
+      <div className={styles.cardMessage}>{customCardData.imageMessage}</div>
+      <div className={styles.emailWrapper}>
+        <div className={styles.emailLabel}>Custom Message on the Card</div>
+        <div className={styles.emailInputWrapper}>
+          <input
+            type="text"
+            name="imageMessage"
+            value={customCardData.imageMessage}
+            onChange={handleInputChange}
+          ></input>
+        </div>
+      </div>
+    </>
   );
 };
 

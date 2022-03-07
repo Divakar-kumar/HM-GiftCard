@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from "./EmailForm.module.css";
+import { FormContext } from "../../appState";
 
 const EmailForm = () => {
   const [emailData, setEmailData] = useState({
@@ -8,13 +9,16 @@ const EmailForm = () => {
     senderName: "",
     deliveryDate: "",
   });
+  const { setEmailFormData } = useContext(FormContext);
 
   const handleInputChange = (event) => {
     const data = { ...emailData };
     data[event.target.name] = event.target.value;
     setEmailData(data);
   };
-
+  useEffect(() => {
+    setEmailFormData(emailData);
+  }, [emailData]);
   return (
     <div>
       <div>

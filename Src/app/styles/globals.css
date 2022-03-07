@@ -17,3 +17,27 @@ a {
 .ant-tooltip-inner {
   display: none;
 }
+.ant-upload-list-picture-card-container {
+  width: 300px !important;
+  height: 300px !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+.ant-upload-list-picture .ant-upload-list-item-error,
+.ant-upload-list-picture-card .ant-upload-list-item-error {
+  border-color: rgb(0 0 0 / 85%) !important;
+}
+.ant-upload.ant-upload-select-picture-card {
+  width: 300px !important;
+  height: 300px !important;
+  margin-right: auto !important;
+  margin-bottom: auto !important;
+  margin: auto !important;
+}
+.ant-upload.ant-upload-select {
+  display: block !important;
+}
+.ant-upload-list-picture-card-container
+  + .ant-upload.ant-upload-select-picture-card {
+  display: none !important;
+}

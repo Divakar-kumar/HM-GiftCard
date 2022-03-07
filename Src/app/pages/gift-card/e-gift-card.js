@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import cn from "classnames";
 
 import HMButton from "../../component/Button/Button";
@@ -13,8 +13,10 @@ import SmsForm from "../../component/SmsForm/SmsForm";
 import SelfDeliverForm from "../../component/SelfDeliverForm/SelfDeliverForm";
 import { slidesData } from "../../component/Carousel/mock";
 import ImageUpload from "../../component/ImageUpload/ImageUpload";
+import { FormContext } from "../../appState";
 
 const EGiftCard = () => {
+  const { customImageDetails, emailFormData } = useContext(FormContext);
   const [deliveryOption, setDeliveryOption] = useState(1);
   const [categoryData, setCategoryData] = useState(slidesData);
   const [choice, setChoice] = useState(1);
@@ -26,87 +28,102 @@ const EGiftCard = () => {
     setCategoryData(data);
   };
 
-  const handleBuy = () => {};
+  const handleBuy = () => {
+    console.log("in submit", customImageDetails, emailFormData);
+  };
 
   return (
     <Layout>
       <Head>
-        <title>First Post</title>
+        <title>Gift Card Creation</title>
       </Head>
       <main>
-        <div className={styles.optionButtonGroup}>
-          <HMButton
-            className={cn(
-              styles.buttonContainer,
-              choice === 1 ? styles.button : ""
-            )}
-            text="Choose a design"
-            onClick={() => handleChoice(1)}
-          ></HMButton>
-          <HMButton
-            className={cn(
-              styles.buttonContainer,
-              choice === 2 ? styles.button : ""
-            )}
-            text="Upload custom image"
-            onClick={() => handleChoice(2)}
-          ></HMButton>
-        </div>
-        {choice === 1 && <Categories onClick={handleCategory}></Categories>}
-        {categoryData?.length && choice === 1 && (
-          <Carousel
-            className={styles.carouselWrapper}
-            slidesData={categoryData}
-          ></Carousel>
-        )}
-        {choice === 2 && (
-          <div>
-            Choose custom image
-            <div className={styles.imageUploadContainer}>
-              <ImageUpload />
-            </div>
-          </div>
-        )}
-        <Form></Form>
-
-        <div>
-          <h1>Delivery options</h1>
-          <p>Please select from one of the options below.</p>
+        <section className={styles.spacing}>
+          <h1>Card Customisation</h1>
           <div className={styles.optionButtonGroup}>
             <HMButton
               className={cn(
                 styles.buttonContainer,
-                deliveryOption === 1 ? styles.button : ""
+                choice === 1 ? styles.button : ""
               )}
-              text="Email"
-              onClick={() => setDeliveryOption(1)}
+              text="Choose a design"
+              onClick={() => handleChoice(1)}
             ></HMButton>
             <HMButton
               className={cn(
                 styles.buttonContainer,
-                deliveryOption === 2 ? styles.button : ""
+                choice === 2 ? styles.button : ""
               )}
-              text="Deliver to me"
-              onClick={() => setDeliveryOption(2)}
-            ></HMButton>
-            <HMButton
-              className={cn(
-                styles.buttonContainer,
-                deliveryOption === 3 ? styles.button : ""
-              )}
-              text="SMS"
-              onClick={() => setDeliveryOption(3)}
+              text="Upload custom image"
+              onClick={() => handleChoice(2)}
             ></HMButton>
           </div>
-          {deliveryOption === 1 && <EmailForm></EmailForm>}
-          {deliveryOption === 2 && <SelfDeliverForm></SelfDeliverForm>}
-          {deliveryOption === 3 && <SmsForm></SmsForm>}
+        </section>
+        <section className={styles.spacing}>
+          {choice === 1 && <Categories onClick={handleCategory}></Categories>}
+          {categoryData?.length && choice === 1 && (
+            <Carousel
+              className={styles.carouselWrapper}
+              slidesData={categoryData}
+            ></Carousel>
+          )}
+          {choice === 2 && (
+            <div>
+              <h1>Custom Card Image</h1>
+              <div className={styles.imageUploadContainer}>
+                <ImageUpload />
+              </div>
+            </div>
+          )}
+        </section>
+        <hr />
+        <section className={styles.spacing}>
+          <h1>Card Details</h1>
+          <Form></Form>
+        </section>
+        <hr />
+        <section className={styles.spacing}>
+          <div>
+            <h1>Delivery options</h1>
+            <p>Please select from one of the options below.</p>
+            <div className={styles.optionButtonGroup}>
+              <HMButton
+                className={cn(
+                  styles.buttonContainer,
+                  deliveryOption === 1 ? styles.button : ""
+                )}
+                text="Email"
+                onClick={() => setDeliveryOption(1)}
+              ></HMButton>
+              <HMButton
+                className={cn(
+                  styles.buttonContainer,
+                  deliveryOption === 2 ? styles.button : ""
+                )}
+                text="Deliver to me"
+                onClick={() => setDeliveryOption(2)}
+              ></HMButton>
+              <HMButton
+                className={cn(
+                  styles.buttonContainer,
+                  deliveryOption === 3 ? styles.button : ""
+                )}
+                text="SMS"
+                onClick={() => setDeliveryOption(3)}
+              ></HMButton>
+            </div>
+            {deliveryOption === 1 && <EmailForm></EmailForm>}
+            {deliveryOption === 2 && <SelfDeliverForm></SelfDeliverForm>}
+            {deliveryOption === 3 && <SmsForm></SmsForm>}
+          </div>
+        </section>
+        <div className={styles.optionButtonGroup}>
+          <HMButton
+            className={cn(styles.buttonContainer, styles.button)}
+            text="Buy"
+            onClick={handleBuy}
+          ></HMButton>
         </div>
-        <HMButton
-          className={cn(styles.buttonContainer, styles.button)}
-          text="Buy"
-          onClick={handleBuy}
-        ></HMButton>
       </main>
     </Layout>
   );
