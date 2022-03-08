@@ -7,7 +7,7 @@ const EmailForm = () => {
     recipientName: "",
     recipientEmail: "",
     senderName: "",
-    deliveryDate: "",
+    deliveryDate: new Date(),
   });
   const { setEmailFormDetails } = useContext(FormContext);
 
@@ -15,9 +15,9 @@ const EmailForm = () => {
     setEmailFormDetails(emailData);
   }, [emailData]);
 
-  useEffect(() => {
-    document.getElementById("date").defaultValue = new Date();
-  }, []);
+  // useEffect(() => {
+  //   document.getElementById("date").defaultValue = new Date();
+  // }, []);
 
   const handleInputChange = (event) => {
     const data = { ...emailData };

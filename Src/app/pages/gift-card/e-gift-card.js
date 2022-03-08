@@ -72,6 +72,17 @@ const EGiftCard = () => {
 
     if (customImageDetails && customImageDetails["imageBase64"]) {
       //api call
+      // const data = customImageDetails["imageBase64"].split(",")[1];
+      const data = customImageDetails["imageBase64"];
+      await axios
+        .post(
+          "https://func-hmgiftcard.azurewebsites.net/api/uploadfilewithextensions?contenttype=image/png",
+          data
+        )
+        .then((response) => {
+          console.log(response);
+          // gift_card["imageURL"] = response;
+        });
     } else {
       gift_card["imageURL"] = finalData["cardImage"];
     }
@@ -103,7 +114,6 @@ const EGiftCard = () => {
     }
 
     const payload = {
-      id: "",
       gift_card: gift_card,
       recepient: recepient,
       customer: customer,
