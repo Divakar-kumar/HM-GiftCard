@@ -1,0 +1,14 @@
+.optionButtonGroup {
+  display: flex;
+}
+.buttonContainer {
+  margin: 0 24px;
+}
+.categoryButtons {
+  margin-top: 40px;
+  flex-grow: 1;
+}
+.button {
+  color: #fff;
+  background: #222;
+}

@@ -21,3 +21,9 @@
   color: #fff;
   background: #222;
 }
+.errorText {
+  color: red;
+}
+.textBox {
+  border: 1px solid #d0d0d0;
+}

@@ -12,3 +12,6 @@
   flex-direction: column;
   flex-grow: 1;
 }
+.textBox {
+  border: 1px solid #d0d0d0;
+}
