@@ -10,6 +10,7 @@ using HM.GiftCard.API.Helper;
 using HM.GiftCard.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -123,6 +124,65 @@ namespace HM.GiftCard.API
          catch(Exception ex)
          {
             _logger.LogError(ex, "Something went wrong while deleting gift card");
+
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+         }
+      }
+      [FunctionName("RedeemGiftCard")]
+      [ProducesResponseType((int)HttpStatusCode.OK)]
+      [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+      [ProducesResponseType((int)HttpStatusCode.NotFound)]
+      [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+      [OpenApiOperation(operationId: "RedeemGiftCard")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
+      public async Task<IActionResult> RedeemGiftCard(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "giftcard/{id}")] HttpRequest req,
+    [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")]
+        DocumentClient client,string id)
+      {
+         try
+         {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var updated = JsonConvert.DeserializeObject<RedeemGiftCard>(requestBody);
+
+
+            Uri collectionUri = UriFactory.CreateDocumentCollectionUri("gift-card-cosmos-db", "GiftCard");
+            var document = client.CreateDocumentQuery<Document>(collectionUri).Where(t => t.Id == id)
+                            .AsEnumerable().FirstOrDefault();
+
+
+            var deserializedDocument = JsonConvert.DeserializeObject<HMGiftCard>(document.ToString());
+
+            if (document == null)
+            {
+               return new NotFoundResult();
+            }
+
+            if (!String.Equals(updated.CardNumber, deserializedDocument.GiftCard.CardNumber) || updated.Pin != deserializedDocument.GiftCard.Pin)
+            {
+               return new BadRequestObjectResult(new
+               {
+                  Errors = new List<string>() { "Enter Valid combination of CardNumber and Pin" }
+               });
+            }
+
+            long balanceAmount = deserializedDocument.GiftCard.Amount - updated.Amount;
+
+            document.SetPropertyValue("amount", balanceAmount);
+
+            await client.ReplaceDocumentAsync(document);
+
+            return new OkObjectResult(new
+            {
+               BalanceAmount = balanceAmount,
+               IsRedeemed = true
+            });
+         }
+         catch(Exception ex)
+         {
+            _logger.LogError(ex, "Something went wrong while redeeming gift card");
 
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
          }
