@@ -9,7 +9,6 @@ const SmsForm = () => {
     recipientPhone: "",
     senderName: "",
     deliveryDate: "",
-    recipientEmail: "",
   });
 
   const handleInputChange = (event) => {
@@ -74,19 +73,6 @@ const SmsForm = () => {
               type="date"
               name="deliveryDate"
               value={smsData.deliveryDate}
-              onChange={handleInputChange}
-              className={styles.textBox}
-            ></input>
-          </div>
-        </div>
-
-        <div className={styles.smsWrapper}>
-          <div className={styles.smsLabel}>Recipient email</div>
-          <div className={styles.smsInputWrapper}>
-            <input
-              type="text"
-              name="recipientEmail"
-              value={smsData.recipientEmail}
               onChange={handleInputChange}
               className={styles.textBox}
             ></input>

@@ -11,14 +11,20 @@ const EmailForm = () => {
   });
   const { setEmailFormDetails } = useContext(FormContext);
 
+  useEffect(() => {
+    setEmailFormDetails(emailData);
+  }, [emailData]);
+
+  useEffect(() => {
+    document.getElementById("date").defaultValue = new Date();
+  }, []);
+
   const handleInputChange = (event) => {
     const data = { ...emailData };
     data[event.target.name] = event.target.value;
     setEmailData(data);
   };
-  useEffect(() => {
-    setEmailFormDetails(emailData);
-  }, [emailData]);
+
   return (
     <div>
       <div>
@@ -65,11 +71,13 @@ const EmailForm = () => {
           <div className={styles.emailLabel}>Delivery date</div>
           <div className={styles.emailInputWrapper}>
             <input
+              id="date"
               type="date"
               name="deliveryDate"
               value={emailData.deliveryDate}
               onChange={handleInputChange}
               className={styles.textBox}
+              // defaultValue={defaultDate}
             ></input>
           </div>
         </div>

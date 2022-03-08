@@ -5,7 +5,7 @@ import { FormContext } from "../../appState";
 const SelfDeliverForm = () => {
   const { setSelfFormDetails } = useContext(FormContext);
   const [selfFormData, setSelfFormData] = useState({
-    name: "",
+    recipientName: "",
   });
 
   const handleInputChange = (event) => {
@@ -27,8 +27,8 @@ const SelfDeliverForm = () => {
             <input
               type="text"
               placeholder="Full name"
-              name="name"
-              value={selfFormData.name}
+              name="recipientName"
+              value={selfFormData.recipientName}
               onChange={handleInputChange}
               className={styles.textBox}
             ></input>

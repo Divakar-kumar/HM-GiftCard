@@ -1,5 +1,12 @@
 const slidesData = [
   {
+    id: 0,
+    image: "/images/Card21.jpeg",
+    imageUrl:
+      "https://img.buyatab.com/gcp/view/cards/600/4645/big/os_multicolor_parcels-a81a2dbb-e4b8-47fb-924c-19d95896e0d5.png",
+    occassion: "All",
+  },
+  {
     id: 1,
     image: "/images/Card1.jpeg",
     imageUrl:
@@ -138,13 +145,6 @@ const slidesData = [
     imageUrl:
       "https://img.buyatab.com/gcp/view/cards/600/4645/big/9831_Digital_giftcards_illustrations_US_CA30-9792e6c3-4d49-420f-9ba0-4e0d62d1fa0f.png",
     occassion: "Birthday",
-  },
-  {
-    id: 21,
-    image: "/images/Card21.jpeg",
-    imageUrl:
-      "https://img.buyatab.com/gcp/view/cards/600/4645/big/os_multicolor_parcels-a81a2dbb-e4b8-47fb-924c-19d95896e0d5.png",
-    occassion: "All",
   },
 ];
 
