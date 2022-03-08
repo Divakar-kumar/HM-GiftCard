@@ -69,7 +69,7 @@ namespace HM.GiftCard.API.Models
       [JsonProperty("message", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
       public string Message { get; set; }
 
-      [JsonProperty("mailAddress", Required = Required.Always)]
+      [JsonProperty("mailAddress", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
       public string MailAddress { get; set; }
 
       [JsonProperty("mobile", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
