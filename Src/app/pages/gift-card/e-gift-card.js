@@ -70,14 +70,16 @@ const EGiftCard = () => {
       id: "",
     };
 
-    if (customImageDetails && customImageDetails["imageMessage"]) {
-      gift_card["message"] = customImageDetails["imageMessage"];
-    }
     if (customImageDetails && customImageDetails["imageBase64"]) {
       //api call
     } else {
       gift_card["imageURL"] = finalData["cardImage"];
     }
+
+    if (customImageDetails && customImageDetails["imageMessage"]) {
+      gift_card["message"] = customImageDetails["imageMessage"];
+    }
+
     if (sendLater) {
       gift_card["sendLaterDateTime"] = new Date(
         finalData["deliveryDate"]

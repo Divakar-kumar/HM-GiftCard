@@ -31,6 +31,41 @@ namespace HM.GiftCard.API
          _logger = log;
       }
 
+      [FunctionName("GetGiftCards")]
+      [ProducesResponseType((int)HttpStatusCode.OK)]
+      [ProducesResponseType((int)HttpStatusCode.NotFound)]
+      [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+      [OpenApiOperation(operationId: "GetGiftCards")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.NotFound, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
+      public IActionResult GetGiftCards(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "giftcards")] HttpRequest req,
+    [CosmosDB(
+        databaseName: "gift-card-cosmos-db",
+        collectionName: "GiftCard",
+        ConnectionStringSetting = "CosmosDBConnection",
+        SqlQuery = "SELECT * FROM c order by c._ts desc")]
+        IEnumerable<dynamic> giftCards)
+      {
+         try
+         {
+            _logger.LogInformation("Getting giftcard list items");
+
+            if (giftCards == null || !giftCards.Any())
+               return new NotFoundResult();
+
+
+            return new OkObjectResult(giftCards);
+         }
+         catch(Exception ex)
+         {
+            _logger.LogError(ex, "Something went wrong while getting all gift cards");
+
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+         }
+      }
+
       [FunctionName("CreateGiftCard")]
       [ProducesResponseType((int)HttpStatusCode.Created)]
       [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -99,7 +134,7 @@ namespace HM.GiftCard.API
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
       [OpenApiOperation(operationId: "DeleteGiftCard")]
       [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-      [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.NotFound, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
       [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
       public async Task<IActionResult> DeleteGiftCard(
     [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "giftcard/{id}")] HttpRequest req,
@@ -135,7 +170,7 @@ namespace HM.GiftCard.API
       [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
       [OpenApiOperation(operationId: "RedeemGiftCard")]
       [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-      [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
+      [OpenApiResponseWithBody(statusCode: HttpStatusCode.NotFound, contentType: "text/plain", bodyType: typeof(string), Description = "Bad Request")]
       [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "text/plain", bodyType: typeof(string), Description = "Internal server error")]
       public async Task<IActionResult> RedeemGiftCard(
     [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "giftcard/{id}")] HttpRequest req,
@@ -170,7 +205,16 @@ namespace HM.GiftCard.API
 
             long balanceAmount = deserializedDocument.GiftCard.Amount - updated.Amount;
 
-            document.SetPropertyValue("amount", balanceAmount);
+            if(balanceAmount<0)
+               return new BadRequestObjectResult(new
+               {
+                  Errors = new List<string>() { $"Your balance is :{deserializedDocument.GiftCard.Amount}, Please enter valid amount to redeem" }
+               });
+
+            var giftCard = document.GetPropertyValue<dynamic>("gift_card");
+            giftCard.Amount = balanceAmount;            
+
+            document.SetPropertyValue("gift_card", giftCard);
 
             await client.ReplaceDocumentAsync(document);
 

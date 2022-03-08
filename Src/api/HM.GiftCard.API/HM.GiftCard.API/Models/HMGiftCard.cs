@@ -21,6 +21,8 @@ namespace HM.GiftCard.API.Models
    {
       [JsonProperty("id", Required = Required.Always)]
       public string Id { get; set; }
+      [JsonProperty("name", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+      public string Name { get; set; }
    }
 
    public partial class GiftCard
@@ -46,6 +48,9 @@ namespace HM.GiftCard.API.Models
       [JsonProperty("currency", Required = Required.Always)]
       public string Currency { get; set; }
 
+      [JsonProperty("deliveryType", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)] 
+      public string DeliveryType { get; set; }
+
       [JsonProperty("sendLaterDateTime", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
       public DateTimeOffset SendLaterDateTime { get; set; }
 
@@ -61,10 +66,13 @@ namespace HM.GiftCard.API.Models
       [JsonProperty("name", Required = Required.Always)]
       public string Name { get; set; }
 
-      [JsonProperty("message", Required = Required.Always)]
+      [JsonProperty("message", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
       public string Message { get; set; }
 
       [JsonProperty("mailAddress", Required = Required.Always)]
       public string MailAddress { get; set; }
+
+      [JsonProperty("mobile", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+      public string Mobile { get; set; }
    }
 }
