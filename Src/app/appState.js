@@ -10,6 +10,7 @@ const FormContextProvider = (props) => {
   const [amountCardDetails, setAmountCardDetails] = useState();
   const [sMSFormDetails, setSMSFormDetails] = useState();
   const [selfFormDetails, setSelfFormDetails] = useState();
+  const [cardImage, setCardImageDetails] = useState();
 
   return (
     // this is the provider providing state
@@ -25,6 +26,8 @@ const FormContextProvider = (props) => {
         setSMSFormDetails,
         selfFormDetails,
         setSelfFormDetails,
+        cardImage,
+        setCardImageDetails,
       }}
     >
       {props.children}

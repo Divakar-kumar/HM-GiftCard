@@ -1,6 +1,9 @@
 import Head from "next/head";
 import React, { useState, useContext } from "react";
 import cn from "classnames";
+import axios from "axios";
+// import Link from 'next/link'
+import { useRouter } from "next/router";
 
 import HMButton from "../../component/Button/Button";
 import styles from "./e-gift-card.module.css";
@@ -16,16 +19,20 @@ import ImageUpload from "../../component/ImageUpload/ImageUpload";
 import { FormContext } from "../../appState";
 
 const EGiftCard = () => {
+  const router = useRouter();
   const {
     customImageDetails,
     emailFormDetails,
     amountCardDetails,
     sMSFormDetails,
     selfFormDetails,
+    cardImage,
   } = useContext(FormContext);
   const [deliveryOption, setDeliveryOption] = useState(1);
   const [categoryData, setCategoryData] = useState(slidesData);
   const [choice, setChoice] = useState(1);
+  const [deliveryType, setDeliveryType] = useState("email");
+  const [sendLater, setSendLater] = useState(false);
 
   const handleChoice = (value) => {
     setChoice(value);
@@ -34,22 +41,96 @@ const EGiftCard = () => {
     setCategoryData(data);
   };
 
-  const handleBuy = () => {
-    console.log(
-      "in submit",
-      "customImageDetails",
-      customImageDetails,
-      "emailFormDetails",
-      emailFormDetails,
-      "amountCardDetails",
-      amountCardDetails,
-      "sMSFormDetails",
-      sMSFormDetails,
-      "selfFormDetails",
-      selfFormDetails
+  const isToday = (date) => {
+    const today = new Date();
+    const someDate = new Date(date);
+    return (
+      someDate.getDate() == today.getDate() &&
+      someDate.getMonth() == today.getMonth() &&
+      someDate.getFullYear() == today.getFullYear()
     );
   };
 
+  const handleBuy = async () => {
+    const finalData = {
+      ...emailFormDetails,
+      ...amountCardDetails,
+      cardImage,
+    };
+    const sendLater = !isToday(finalData["deliveryDate"]);
+    const gift_card = {
+      amount: parseInt(finalData["amount"]),
+      currency: "INR",
+      quantity: parseInt(finalData["quantity"]),
+      occasion: "Diwali",
+      deliveryType: deliveryType,
+      sendLater: sendLater,
+    };
+    const customer = {
+      id: "",
+    };
+
+    if (customImageDetails && customImageDetails["imageBase64"]) {
+      //api call
+      // const data = customImageDetails["imageBase64"].split(",")[1];
+      const data = customImageDetails["imageBase64"];
+      await axios
+        .post(
+          "https://func-hmgiftcard.azurewebsites.net/api/uploadfilewithextensions?contenttype=image/png",
+          data
+        )
+        .then((response) => {
+          console.log(response);
+          // gift_card["imageURL"] = response;
+        });
+    } else {
+      gift_card["imageURL"] = finalData["cardImage"];
+    }
+
+    if (customImageDetails && customImageDetails["imageMessage"]) {
+      gift_card["message"] = customImageDetails["imageMessage"];
+    }
+
+    if (sendLater) {
+      gift_card["sendLaterDateTime"] = new Date(
+        finalData["deliveryDate"]
+      ).toISOString();
+    }
+
+    const recepient = {};
+    if (deliveryType === "email") {
+      recepient["name"] = finalData["recipientName"];
+      recepient["message"] = finalData["message"];
+      recepient["mailAddress"] = finalData["recipientEmail"];
+    } else if (deliveryType === "sms") {
+      recepient["name"] = finalData["recipientName"];
+      recepient["message"] = finalData["message"];
+      recepient["mobile"] = finalData["recipientPhone"];
+    } else {
+      recepient["name"] = finalData["recipientName"];
+    }
+    if (finalData["senderName"]) {
+      customer["name"] = finalData["senderName"];
+    }
+
+    const payload = {
+      gift_card: gift_card,
+      recepient: recepient,
+      customer: customer,
+    };
+
+    axios
+      .post("https://func-hmgiftcard.azurewebsites.net/api/giftcard", payload)
+      .then((response) => {
+        console.log(response);
+        router.push(`http://localhost:3000/gift-card/orderConfirmation`);
+      });
+  };
+
+  const handleDeliveryOption = (value, type) => {
+    setDeliveryOption(value);
+    setDeliveryType(type);
+  };
   return (
     <Layout>
       <Head>
@@ -111,7 +192,7 @@ const EGiftCard = () => {
                   deliveryOption === 1 ? styles.button : ""
                 )}
                 text="Email"
-                onClick={() => setDeliveryOption(1)}
+                onClick={() => handleDeliveryOption(1, "email")}
               ></HMButton>
               <HMButton
                 className={cn(
@@ -119,7 +200,7 @@ const EGiftCard = () => {
                   deliveryOption === 2 ? styles.button : ""
                 )}
                 text="Deliver to me"
-                onClick={() => setDeliveryOption(2)}
+                onClick={() => handleDeliveryOption(2, "self")}
               ></HMButton>
               <HMButton
                 className={cn(
@@ -127,7 +208,7 @@ const EGiftCard = () => {
                   deliveryOption === 3 ? styles.button : ""
                 )}
                 text="SMS"
-                onClick={() => setDeliveryOption(3)}
+                onClick={() => handleDeliveryOption(3, "sms")}
               ></HMButton>
             </div>
             {deliveryOption === 1 && <EmailForm></EmailForm>}
@@ -148,3 +229,4 @@ const EGiftCard = () => {
 };
 
 export default EGiftCard;
+// export default withRouter(EGiftCard);

@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import styles from "./Carousel.module.css";
 import { slidesData } from "../Carousel/mock";
 
 import Slider from "react-slick";
+import { FormContext } from "../../appState";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Carousel = ({ className, slidesData }) => {
-  const [imageData, setImageData] = useState("");
+  const [imageData, setImageData] = useState(slidesData[0].imageUrl);
 
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   const [slider1, setSlider1] = useState(null);
   const [slider2, setSlider2] = useState(null);
 
+  const { setCardImageDetails } = useContext(FormContext);
+
   useEffect(() => {
     setNav1(slider1);
     setNav2(slider2);
   });
+
+  useEffect(() => {
+    setCardImageDetails(imageData);
+  }, [imageData]);
 
   const settingsMain = {
     slidesToShow: 1,
@@ -41,10 +48,8 @@ const Carousel = ({ className, slidesData }) => {
   };
 
   const handleAfterChange = (event) => {
-    console.log("handleAfterChange");
-    console.log(event);
     const filteredData = slidesData.filter((data) => data.id === event);
-    setImageData(filteredData[0].image);
+    setImageData(filteredData[0].imageUrl);
   };
   return (
     <div className={className}>
@@ -56,14 +61,12 @@ const Carousel = ({ className, slidesData }) => {
         >
           {slidesData.map((slide) => (
             <div className={styles.slickSlide} key={slide.id}>
-              {/* <h2 className={styles.slickSlideTitle}>{slide.title}</h2> */}
               <Image
                 src={slide.image} // Route of the image file
                 height={271} // Desired size with correct aspect ratio
                 width={430} // Desired size with correct aspect ratio
                 alt="Card"
               />
-              {/* <label className={styles.slickSlideLabel}>{slide.label}</label> */}
             </div>
           ))}
         </Slider>

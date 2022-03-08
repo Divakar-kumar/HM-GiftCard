@@ -76,8 +76,8 @@ const Form = () => {
   };
 
   useEffect(() => {
-    setAmountCardDetails(selectedAmount);
-  }, [selectedAmount]);
+    setAmountCardDetails(cardData);
+  }, [cardData]);
 
   return (
     <div>
