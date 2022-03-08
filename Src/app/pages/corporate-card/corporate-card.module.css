@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+.label {
+  width: 30%;
+}
+.input {
+  width: 50%;
+}
+.formItem {
+  display: flex;
+  margin-bottom: 24px;
+}
+.button:hover {
+  color: #fff;
+  background: #222;
+}
