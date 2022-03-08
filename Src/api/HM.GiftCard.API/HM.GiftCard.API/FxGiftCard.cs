@@ -205,7 +205,16 @@ namespace HM.GiftCard.API
 
             long balanceAmount = deserializedDocument.GiftCard.Amount - updated.Amount;
 
-            document.SetPropertyValue("amount", balanceAmount);
+            if(balanceAmount<0)
+               return new BadRequestObjectResult(new
+               {
+                  Errors = new List<string>() { $"Your balance is :{deserializedDocument.GiftCard.Amount}, Please enter valid amount to redeem" }
+               });
+
+            var giftCard = document.GetPropertyValue<dynamic>("gift_card");
+            giftCard.Amount = balanceAmount;            
+
+            document.SetPropertyValue("gift_card", giftCard);
 
             await client.ReplaceDocumentAsync(document);
 
