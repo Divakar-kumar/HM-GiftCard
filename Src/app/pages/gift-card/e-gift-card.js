@@ -1,13 +1,11 @@
 import Head from "next/head";
 import React, { useState, useContext, useEffect } from "react";
-import cn from "classnames";
 import axios from "axios";
-// import Link from 'next/link'
 import { useRouter } from "next/router";
 import StepProgressBar from "react-step-progress";
 import "react-step-progress/dist/index.css";
 
-import HMButton from "../../component/Button/Button";
+// import HMButton from "../../component/Button/Button";
 import styles from "./e-gift-card.module.css";
 import Layout from "../../component/Layout/Layout";
 import { FormContext } from "../../appState";
@@ -28,7 +26,7 @@ const EGiftCard = () => {
   } = useContext(FormContext);
   const [deliveryOption, setDeliveryOption] = useState(1);
   const [deliveryType, setDeliveryType] = useState("email");
-  const [sendLater, setSendLater] = useState(false);
+  // const [sendLater, setSendLater] = useState(false);
 
   const isToday = (date) => {
     const today = new Date();
@@ -46,7 +44,7 @@ const EGiftCard = () => {
       ...amountCardDetails,
       ...sMSFormDetails,
       ...selfFormDetails,
-      cardImage,
+      ...cardImage,
     };
     const sendLater = !isToday(finalData["deliveryDate"]);
     const gift_card = {
@@ -75,7 +73,7 @@ const EGiftCard = () => {
           gift_card["imageURL"] = response.data;
         });
     } else {
-      gift_card["imageURL"] = finalData["cardImage"];
+      gift_card["imageURL"] = finalData["imageUrl"];
     }
 
     if (customImageDetails && customImageDetails["imageMessage"]) {
@@ -115,7 +113,7 @@ const EGiftCard = () => {
       .post("https://func-hmgiftcard.azurewebsites.net/api/giftcard", payload)
       .then((response) => {
         console.log(response);
-        router.push(`http://localhost:3000/gift-card/orderConfirmation`);
+        router.push(`/gift-card/orderConfirmation`);
       });
   };
 
@@ -173,4 +171,3 @@ const EGiftCard = () => {
 };
 
 export default EGiftCard;
-// export default withRouter(EGiftCard);

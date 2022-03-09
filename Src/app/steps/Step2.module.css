@@ -1,3 +1,22 @@
 .spacing {
-  margin-top: 1rem;
+  margin-top: 5rem;
+  display: flex;
+}
+.subSection1 {
+  width: 40%;
+}
+.cardMessage {
+  position: absolute;
+  /* border: 1px solid black; */
+  width: 300px;
+  height: 35px;
+  left: 19.5rem;
+  text-align: center;
+  top: 26.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: crimson;
+  font-style: italic;
+  font-family: cursive;
 }

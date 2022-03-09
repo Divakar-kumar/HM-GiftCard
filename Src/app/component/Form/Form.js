@@ -80,7 +80,7 @@ const Form = () => {
   }, [cardData]);
 
   return (
-    <div>
+    <div className={styles.subSection2}>
       <div className={styles.amountWrapper}>
         <div className={styles.amountLabel}>Amount</div>
         <div className={styles.amountInputWrapper}>

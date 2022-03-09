@@ -3,7 +3,8 @@
   padding: 20px 0 15px;
 }
 .amountLabel {
-  width: 50%;
+  /* width: 50%; */
+  width: 20%;
 }
 .amountInputWrapper {
   width: 50%;
@@ -26,4 +27,7 @@
 }
 .textBox {
   border: 1px solid #d0d0d0;
+}
+.subSection2 {
+  width: 60%;
 }

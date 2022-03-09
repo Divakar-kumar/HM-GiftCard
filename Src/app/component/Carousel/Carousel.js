@@ -10,7 +10,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Carousel = ({ className, slidesData }) => {
-  const [imageData, setImageData] = useState(slidesData[0].imageUrl);
+  const [imageData, setImageData] = useState({
+    imageUrl: slidesData[0].imageUrl,
+    image: slidesData[0].image,
+  });
 
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
@@ -49,7 +52,10 @@ const Carousel = ({ className, slidesData }) => {
 
   const handleAfterChange = (event) => {
     const filteredData = slidesData.filter((data) => data.id === event);
-    setImageData(filteredData[0].imageUrl);
+    setImageData({
+      imageUrl: filteredData[0].imageUrl,
+      image: filteredData[0].image,
+    });
   };
   return (
     <div className={className}>

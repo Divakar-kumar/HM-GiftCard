@@ -3,16 +3,15 @@
   background: #faf9f8;
 }
 .container {
-  /* max-width: 36rem; */
   padding: 0 1rem;
   margin: auto;
-  width: 50%;
+  width: 80%;
 }
 .leftSection {
-  width: 25%;
+  width: 10%;
 }
 .rightSection {
-  width: 25%;
+  width: 10%;
 }
 .headerLogo {
   margin: auto;
