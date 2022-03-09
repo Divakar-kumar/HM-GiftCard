@@ -2,8 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "staticSites_stapp_giftcard_name": {
-            "defaultValue": "stapp-giftcard",
+        "staticSites_stapp_hmgiftcard_name": {
+            "defaultValue": "stapp-hmgiftcard",
+            "type": "String"
+        },
+        "sites_func_hmgiftcard_externalid": {
+            "defaultValue": "/subscriptions/5c656877-d15d-4129-9744-ae922877035c/resourceGroups/rg-giftcard/providers/Microsoft.Web/sites/func-hmgiftcard",
             "type": "String"
         }
     },
@@ -12,11 +16,11 @@
         {
             "type": "Microsoft.Web/staticSites",
             "apiVersion": "2021-03-01",
-            "name": "[parameters('staticSites_stapp_giftcard_name')]",
+            "name": "[parameters('staticSites_stapp_hmgiftcard_name')]",
             "location": "Central US",
             "sku": {
-                "name": "Free",
-                "tier": "Free"
+                "name": "Standard",
+                "tier": "Standard"
             },
             "properties": {
                 "repositoryUrl": "https://github.com/Divakar-kumar/HM-GiftCard",
@@ -25,6 +29,19 @@
                 "allowConfigFileUpdates": true,
                 "provider": "GitHub",
                 "enterpriseGradeCdnStatus": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Web/staticSites/userProvidedFunctionApps",
+            "apiVersion": "2020-12-01",
+            "name": "[concat(parameters('staticSites_stapp_hmgiftcard_name'), '/func-hmgiftcard')]",
+            "location": "Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/staticSites', parameters('staticSites_stapp_hmgiftcard_name'))]"
+            ],
+            "properties": {
+                "functionAppResourceId": "[parameters('sites_func_hmgiftcard_externalid')]",
+                "functionAppRegion": "centralindia"
             }
         }
     ]
