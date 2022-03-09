@@ -4,6 +4,7 @@ import cn from "classnames";
 import Layout from "../../component/Layout/Layout";
 import styles from "./corporate-card.module.css";
 import HMButton from "../../component/Button/Button";
+import Image from "next/image";
 
 const CorporateCard = () => {
   const [showForm, setShowForm] = useState(true);
@@ -14,14 +15,22 @@ const CorporateCard = () => {
   return (
     <Layout>
       <Head>
-        <title>First Post</title>
+        <title>Corporate Card Booking</title>
       </Head>
       <main>
+        <Image
+          src="/images/banner2.jpeg"
+          alt="me"
+          layout="responsive"
+          width={1400}
+          height={271}
+          className={styles.headerImage}
+        />
         {showForm ? (
           <div className={styles.container}>
-            <p>
-              We cater to all corporate/ bulk requirements for H&M Gift Cards.
-            </p>
+            <h3>
+              We cater to all corporate/ bulk requirements for H&M Gift Cards
+            </h3>
             <p>
               Please fill out the form below and we will get in touch with you
               within 24 hours*.
@@ -130,7 +139,7 @@ const CorporateCard = () => {
           </div>
         ) : (
           <div>
-            <p>Thank you for showing interest!</p>
+            <h3>Thank you for showing interest!</h3>
             <p>We will get in touch with you within 1 business day.</p>
             If you have an immediate Corporate requirement for H&M Pay Gift
             Cards, please send us an email to CorporateGiftCards@hm.com or call

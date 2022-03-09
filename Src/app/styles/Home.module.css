@@ -80,6 +80,7 @@
   margin: 0 24px;
   color: #fff;
   background: #222 !important;
+  cursor: pointer;
 }
 .InfoDescription {
   margin: 56px 0;
