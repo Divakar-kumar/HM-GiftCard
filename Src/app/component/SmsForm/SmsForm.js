@@ -41,7 +41,7 @@ const SmsForm = () => {
           <div className={styles.smsLabel}>Recipient phone</div>
           <div className={styles.smsInputWrapper}>
             <input
-              type="number"
+              type="text"
               name="recipientPhone"
               value={smsData.recipientPhone}
               onChange={handleInputChange}

@@ -22,11 +22,12 @@ const ImageUpload = () => {
   const [fileList, setFileList] = useState([]);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-
     toDataURL(newFileList[0]).then((dataUrl) => {
       console.log("RESULT:", dataUrl);
+      let selectedFile = newFileList[0].thumbUrl;
+      let base64String = selectedFile && selectedFile.split(",")[1];
       setCustomCardData({
-        imageBase64: dataUrl,
+        imageBase64: base64String,
         imageMessage: customCardData.imageMessage,
       });
     });
@@ -71,27 +72,33 @@ const ImageUpload = () => {
 
   return (
     <>
-      <ImgCrop grid rotate>
-        <Upload
-          listType="picture-card"
-          fileList={fileList}
-          onChange={onChange}
-          onPreview={onPreview}
-        >
-          {fileList.length < 1 && "+ Upload Image"}
-        </Upload>
-      </ImgCrop>
-      <div className={styles.cardMessage}>{customCardData.imageMessage}</div>
-      <div className={styles.emailWrapper}>
-        <div className={styles.emailLabel}>Custom Message on the Card</div>
-        <div className={styles.emailInputWrapper}>
-          <input
-            className={styles.textBox}
-            type="text"
-            name="imageMessage"
-            value={customCardData.imageMessage}
-            onChange={handleInputChange}
-          ></input>
+      <div className={styles.wrapper}>
+        <div className={styles.cardWrapper}>
+          <ImgCrop grid rotate>
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+            >
+              {fileList.length < 1 && "+ Upload Image"}
+            </Upload>
+          </ImgCrop>
+          <div className={styles.cardMessage}>
+            {customCardData.imageMessage}
+          </div>
+        </div>
+        <div className={styles.emailWrapper}>
+          <div className={styles.emailLabel}>Custom Message on the Card</div>
+          <div className={styles.emailInputWrapper}>
+            <input
+              className={styles.textBox}
+              type="text"
+              name="imageMessage"
+              value={customCardData.imageMessage}
+              onChange={handleInputChange}
+            ></input>
+          </div>
         </div>
       </div>
     </>

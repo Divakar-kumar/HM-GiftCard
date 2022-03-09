@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #faf9f8 !important;
 }
 
 a {
@@ -40,4 +41,18 @@ a {
 .ant-upload-list-picture-card-container
   + .ant-upload.ant-upload-select-picture-card {
   display: none !important;
+}
+
+::selection {
+  color: #fff;
+  background: #d10420;
+}
+
+.stepProgress li span {
+  color: #fff !important;
+  background-color: #d10420 !important;
+}
+
+.stepProgress li::before {
+  background: #d10420 !important;
 }
