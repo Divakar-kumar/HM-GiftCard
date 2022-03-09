@@ -55,6 +55,8 @@ const EGiftCard = () => {
     const finalData = {
       ...emailFormDetails,
       ...amountCardDetails,
+      ...sMSFormDetails,
+      ...selfFormDetails,
       cardImage,
     };
     const sendLater = !isToday(finalData["deliveryDate"]);
@@ -80,8 +82,8 @@ const EGiftCard = () => {
           data
         )
         .then((response) => {
-          console.log(response);
-          // gift_card["imageURL"] = response;
+          // console.log(response);
+          gift_card["imageURL"] = response.data;
         });
     } else {
       gift_card["imageURL"] = finalData["cardImage"];
@@ -108,6 +110,7 @@ const EGiftCard = () => {
       recepient["mobile"] = finalData["recipientPhone"];
     } else {
       recepient["name"] = finalData["recipientName"];
+      recepient["mailAddress"] = "gunjan.bothra@hm.com";
     }
     if (finalData["senderName"]) {
       customer["name"] = finalData["senderName"];

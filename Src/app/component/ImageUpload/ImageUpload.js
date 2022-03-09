@@ -22,11 +22,12 @@ const ImageUpload = () => {
   const [fileList, setFileList] = useState([]);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-
     toDataURL(newFileList[0]).then((dataUrl) => {
       console.log("RESULT:", dataUrl);
+      let selectedFile = newFileList[0].thumbUrl;
+      let base64String = selectedFile && selectedFile.split(",")[1];
       setCustomCardData({
-        imageBase64: dataUrl,
+        imageBase64: base64String,
         imageMessage: customCardData.imageMessage,
       });
     });

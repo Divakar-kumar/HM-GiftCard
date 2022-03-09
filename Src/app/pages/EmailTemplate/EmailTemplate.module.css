@@ -1,0 +1,19 @@
+.container {
+  max-width: 41.66667%;
+  background: #faf9f8;
+}
+.information {
+  display: flex;
+  flex-direction: row;
+}
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+}
+.cardImageContainer {
+  width: 95%;
+  margin: auto;
+}
+.cardImage {
+  width: 100%;
+}
