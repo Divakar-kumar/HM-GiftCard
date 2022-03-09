@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "antd":"^4.19.1",
     "antd-img-crop": "^4.1.0",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
