@@ -19,3 +19,25 @@
 .spacing {
   margin-top: 1rem;
 }
+.primaryButton,
+.primaryButton:hover {
+  color: #fff;
+  background: #222;
+  border: none;
+  border-radius: 0;
+}
+
+.secondaryButton,
+.secondaryButton:hover {
+  color: #222;
+  background: #fff;
+  border-radius: 0;
+  border: 1px solid #222;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0 4rem;
+}

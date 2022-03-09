@@ -15,6 +15,7 @@
   width: 25%;
 }
 .headerLogo {
-  margin: 20px auto;
+  margin: auto;
+  padding: 1.5rem 0;
   width: 5%;
 }

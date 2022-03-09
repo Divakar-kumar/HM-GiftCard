@@ -72,27 +72,33 @@ const ImageUpload = () => {
 
   return (
     <>
-      <ImgCrop grid rotate>
-        <Upload
-          listType="picture-card"
-          fileList={fileList}
-          onChange={onChange}
-          onPreview={onPreview}
-        >
-          {fileList.length < 1 && "+ Upload Image"}
-        </Upload>
-      </ImgCrop>
-      <div className={styles.cardMessage}>{customCardData.imageMessage}</div>
-      <div className={styles.emailWrapper}>
-        <div className={styles.emailLabel}>Custom Message on the Card</div>
-        <div className={styles.emailInputWrapper}>
-          <input
-            className={styles.textBox}
-            type="text"
-            name="imageMessage"
-            value={customCardData.imageMessage}
-            onChange={handleInputChange}
-          ></input>
+      <div className={styles.wrapper}>
+        <div className={styles.cardWrapper}>
+          <ImgCrop grid rotate>
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+            >
+              {fileList.length < 1 && "+ Upload Image"}
+            </Upload>
+          </ImgCrop>
+          <div className={styles.cardMessage}>
+            {customCardData.imageMessage}
+          </div>
+        </div>
+        <div className={styles.emailWrapper}>
+          <div className={styles.emailLabel}>Custom Message on the Card</div>
+          <div className={styles.emailInputWrapper}>
+            <input
+              className={styles.textBox}
+              type="text"
+              name="imageMessage"
+              value={customCardData.imageMessage}
+              onChange={handleInputChange}
+            ></input>
+          </div>
         </div>
       </div>
     </>
