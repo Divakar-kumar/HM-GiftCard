@@ -15,3 +15,7 @@
 .textBox {
   border: 1px solid #d0d0d0;
 }
+.required:after {
+  content: " *";
+  color: red;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import styles from "./SelfDeliverForm.module.css";
 import { FormContext } from "../../appState";
+import cn from "classnames";
 
 const SelfDeliverForm = () => {
   const { setSelfFormDetails } = useContext(FormContext);
@@ -22,9 +23,12 @@ const SelfDeliverForm = () => {
     <div>
       <div>
         <div className={styles.selfDeliverWrapper}>
-          <div className={styles.selfDeliverLabel}>Recipient name</div>
+          <div className={cn(styles.required, styles.selfDeliverLabel)}>
+            Recipient name
+          </div>
           <div className={styles.selfDeliverInputWrapper}>
             <input
+              required
               type="text"
               placeholder="Full name"
               name="recipientName"

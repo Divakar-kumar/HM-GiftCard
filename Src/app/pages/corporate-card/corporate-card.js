@@ -33,11 +33,11 @@ const CorporateCard = () => {
             </h3>
             <p>
               Please fill out the form below and we will get in touch with you
-              within 24 hours*.
+              within 24 hours.
             </p>
             <form className={styles.amountWrapper}>
               <div className={styles.formItem}>
-                <label for="name" className={styles.label}>
+                <label for="name" className={cn(styles.required, styles.label)}>
                   Your name
                 </label>
                 <input
@@ -50,10 +50,14 @@ const CorporateCard = () => {
               </div>
 
               <div className={styles.formItem}>
-                <label className={styles.label} for="orgName">
+                <label
+                  className={cn(styles.required, styles.label)}
+                  for="orgName"
+                >
                   Organisation name
                 </label>
                 <input
+                  required
                   className={styles.input}
                   type="text"
                   id="orgName"
@@ -63,7 +67,10 @@ const CorporateCard = () => {
               </div>
 
               <div className={styles.formItem}>
-                <label className={styles.label} for="orgEmail">
+                <label
+                  className={cn(styles.required, styles.label)}
+                  for="orgEmail"
+                >
                   Official E-mail id
                 </label>
                 <input
@@ -76,10 +83,14 @@ const CorporateCard = () => {
               </div>
 
               <div className={styles.formItem}>
-                <label className={styles.label} for="pinCode">
+                <label
+                  className={cn(styles.required, styles.label)}
+                  for="pinCode"
+                >
                   Pin Code
                 </label>
                 <input
+                  required
                   className={styles.input}
                   type="text"
                   id="pinCode"
@@ -89,10 +100,14 @@ const CorporateCard = () => {
               </div>
 
               <div className={styles.formItem}>
-                <label className={styles.label} for="phnNumber">
+                <label
+                  className={cn(styles.required, styles.label)}
+                  for="phnNumber"
+                >
                   Phone number
                 </label>
                 <input
+                  required
                   className={styles.input}
                   type="number"
                   id="phnNumber"
@@ -102,7 +117,10 @@ const CorporateCard = () => {
               </div>
 
               <div className={styles.formItem}>
-                <label className={styles.label} for="support">
+                <label
+                  className={cn(styles.required, styles.label)}
+                  for="support"
+                >
                   How can we support
                 </label>
                 <select id="support" name="support" className={styles.input}>

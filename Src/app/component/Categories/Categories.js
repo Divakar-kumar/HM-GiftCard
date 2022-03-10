@@ -4,7 +4,7 @@ import styles from "./Categories.module.css";
 import HMButton from "../Button/Button";
 import { slidesData } from "../Carousel/mock";
 
-const originalData = slidesData;
+const originalData = [...slidesData];
 const Categories = ({ onClick }) => {
   const [category, setCategoryType] = useState("All");
 
@@ -16,9 +16,22 @@ const Categories = ({ onClick }) => {
         break;
       case "occassion":
         setCategoryType("occassion");
-        const filtereData = slidesData.filter(
-          (data) => data.occassion !== "All"
-        );
+        const index = 0;
+
+        const filtereData = [];
+        const data = slidesData;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].occassion !== "All") {
+            filtereData.push({
+              id: index,
+              image: data[i].image,
+              imageUrl: data[i].imageUrl,
+              occassion: data[i].imageUrl,
+            });
+            index++;
+          }
+        }
+
         onClick(filtereData);
         break;
       case "recipient":

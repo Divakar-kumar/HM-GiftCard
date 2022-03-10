@@ -31,3 +31,7 @@
 .subSection2 {
   width: 60%;
 }
+.required:after {
+  content: " *";
+  color: red;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import { slidesData } from "../component/Carousel/mock";
 import ImageUpload from "../component/ImageUpload/ImageUpload";
@@ -8,7 +8,7 @@ import HMButton from "../component/Button/Button";
 import Categories from "../component/Categories/Categories";
 
 const Step1 = () => {
-  const [categoryData, setCategoryData] = useState(slidesData);
+  const [categoryData, setCategoryData] = useState();
   const [choice, setChoice] = useState(1);
 
   const handleChoice = (value) => {
@@ -18,6 +18,10 @@ const Step1 = () => {
   const handleCategory = (data) => {
     setCategoryData(data);
   };
+
+  useEffect(() => {
+    setCategoryData(slidesData);
+  }, []);
 
   return (
     <>

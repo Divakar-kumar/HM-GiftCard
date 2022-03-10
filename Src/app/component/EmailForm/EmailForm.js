@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import styles from "./EmailForm.module.css";
 import { FormContext } from "../../appState";
+import cn from "classnames";
 
 const EmailForm = () => {
   const [emailData, setEmailData] = useState({
@@ -15,10 +16,6 @@ const EmailForm = () => {
     setEmailFormDetails(emailData);
   }, [emailData]);
 
-  // useEffect(() => {
-  //   document.getElementById("date").defaultValue = new Date();
-  // }, []);
-
   const handleInputChange = (event) => {
     const data = { ...emailData };
     data[event.target.name] = event.target.value;
@@ -29,9 +26,12 @@ const EmailForm = () => {
     <div>
       <div>
         <div className={styles.emailWrapper}>
-          <div className={styles.emailLabel}>Recipient name</div>
+          <div className={cn(styles.emailLabel, styles.required)}>
+            Recipient name
+          </div>
           <div className={styles.emailInputWrapper}>
             <input
+              required
               type="text"
               name="recipientName"
               value={emailData.recipientName}
@@ -42,9 +42,12 @@ const EmailForm = () => {
         </div>
 
         <div className={styles.emailWrapper}>
-          <div className={styles.emailLabel}>Recipient email</div>
+          <div className={cn(styles.emailLabel, styles.required)}>
+            Recipient email
+          </div>
           <div className={styles.emailInputWrapper}>
             <input
+              required
               type="text"
               name="recipientEmail"
               value={emailData.recipientEmail}
@@ -68,7 +71,9 @@ const EmailForm = () => {
         </div>
 
         <div className={styles.emailWrapper}>
-          <div className={styles.emailLabel}>Delivery date</div>
+          <div className={cn(styles.emailLabel, styles.required)}>
+            Delivery date
+          </div>
           <div className={styles.emailInputWrapper}>
             <input
               id="date"

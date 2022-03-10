@@ -82,7 +82,7 @@ const Form = () => {
   return (
     <div className={styles.subSection2}>
       <div className={styles.amountWrapper}>
-        <div className={styles.amountLabel}>Amount</div>
+        <div className={cn(styles.required, styles.amountLabel)}>Amount</div>
         <div className={styles.amountInputWrapper}>
           <input
             type="number"
@@ -124,9 +124,10 @@ const Form = () => {
       </div>
 
       <div className={styles.amountWrapper}>
-        <div className={styles.amountLabel}>Quantity</div>
+        <div className={cn(styles.amountLabel, styles.required)}>Quantity</div>
         <div className={styles.amountInputWrapper}>
           <input
+            required
             type="number"
             value={cardData.quantity}
             name="quantity"

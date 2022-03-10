@@ -19,3 +19,7 @@
   color: #fff;
   background: #222;
 }
+.required:after {
+  content: " *";
+  color: red;
+}

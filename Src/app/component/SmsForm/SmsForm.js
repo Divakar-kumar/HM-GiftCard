@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FormContext } from "../../appState";
 import styles from "./SmsForm.module.css";
+import cn from "classnames";
 
 const SmsForm = () => {
   const { setSMSFormDetails } = useContext(FormContext);
@@ -24,7 +25,9 @@ const SmsForm = () => {
     <div>
       <div>
         <div className={styles.smsWrapper}>
-          <div className={styles.smsLabel}>Recipient name</div>
+          <div className={cn(styles.smsLabel, styles.required)}>
+            Recipient name
+          </div>
           <div className={styles.smsInputWrapper}>
             <input
               type="text"
@@ -38,9 +41,12 @@ const SmsForm = () => {
         </div>
 
         <div className={styles.smsWrapper}>
-          <div className={styles.smsLabel}>Recipient phone</div>
+          <div className={cn(styles.smsLabel, styles.required)}>
+            Recipient phone
+          </div>
           <div className={styles.smsInputWrapper}>
             <input
+              required
               type="text"
               name="recipientPhone"
               value={smsData.recipientPhone}
@@ -67,7 +73,9 @@ const SmsForm = () => {
         </div>
 
         <div className={styles.smsWrapper}>
-          <div className={styles.smsLabel}>Delivery date</div>
+          <div className={cn(styles.smsLabel, styles.required)}>
+            Delivery date
+          </div>
           <div className={styles.smsInputWrapper}>
             <input
               type="date"
