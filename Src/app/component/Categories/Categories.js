@@ -71,14 +71,6 @@ const Categories = ({ onClick }) => {
         text="Recipient"
         onClick={() => handleCategory("recipient")}
       ></HMButton>
-      <HMButton
-        className={cn(
-          styles.buttonContainer,
-          category === "coorporate" ? styles.button : ""
-        )}
-        text="Coorporate Bulk"
-        onClick={() => handleCategory("coorporate")}
-      ></HMButton>
     </div>
   );
 };
